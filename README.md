@@ -21,7 +21,7 @@ One Raspberry Pi with a 220 degree fisheye camera, wirelessly connected to A PC 
 
 ### 3.1 Raspberry Pi Camera
 
-The first step is to prepare a Raspberry Pi camera,
+The first step is to prepare a Raspberry Pi camera with a 220 degree camera,
 
 reference the repo,
 
@@ -55,18 +55,19 @@ then you can enter the address in browser of another PC
 
 ### 3.2 Qt_Mainmoil_Cuda
 
-We then run MOIL application qt_mainmoil_cuda  ( Repo : qt_mainmoil_cuda, it's a privtae
+Please clone and run MOIL application qt_mainmoil_cuda.
 
-repository, please email me if you need the previledge )
+https://github.com/yourskc/gt_mainmoil_cuda.git
 
+( please email me if you need the previledge )
 
-We need to set the camera source from IP camera instead of the default USB camera, please
+We need to set the camera source from IP camera instead of the default USB camera,
 
 set the FORCE_CAMERA_USB to false in the mainwindow.cpp
 
 <img src="programguide/p001.png">
 
-Run the Qt Application, then enter the above address of the Raspberry Pi camera. for my case,
+Run the Qt Application, then enter the above IP address of the Raspberry Pi camera. for my case,
 
 http://192.168.0.68:8000/stream.mjpg
 
@@ -87,67 +88,55 @@ The above video clip can be loaded into MOIL application again,
 
 You can browse to any direction while playback the video clip.
 
-We'll take some snapshots in the interested angles, and perform the Text recognition
+We'll take some snapshots in the interested angles, and perform the
 
-in the next step.
-
+recognition in the next step.
 
 
 ### 3.3 AWS Rekognition for Text Recongnition
 
-Since the ALPR is different with normal Text recongnition, the Fonts of license plate  
+Since the ALPR is different from normal Text recongnition, usually the
 
-由於車牌字型與文件一般使用字型有所不同，自行訓練真實車牌 Model 需要大量影像樣本與時間，本實驗為快速驗證，後半部處理採用 AWS Rekognition 技術，可以得到較佳之辨識結果。
+Fonts on license plate are specially designed for license plate.
 
-See the python program in the directory
+They are quite different from one contury to another. So, for the best
 
-modify the config file according to your AWS IAM keys.
+detection result, we need to train the model with real images. Here, we   
 
-Please reference to
+adopt a ready-to-use solution - AWS Rekognition API.
 
-xxxxx
+由於車牌字型與文件一般使用字型有所不同，自行訓練真實車牌 Model 需要大量影像樣本與時間，本實驗為快速驗證，後半部處理採用 AWS Rekognition 技術，相較於一般模型可以得到較佳之辨識結果。
 
+Reference to PyImageSearch,
+
+https://pyimagesearch.com/2022/03/21/text-detection-and-ocr-with-amazon-rekognition-api/
+
+and AWS Rekognition official document,
+
+https://docs.aws.amazon.com/rekognition/latest/dg/text-detecting-text-procedure.html
+
+See the python program in the directory AWS_rekog
+
+The most important steps are,
+
+1. Modify the config file aws_config.py with your access key, secret key, and AWS region. ( Before that, you need to register an AWS account).
+
+2. Run the Python script
+
+```sh
 cd AWS_rekog
-python3
+python3 {imagefile}
+```
+
+The {imagefile} is the image filename from the previous step.
+
+
+
+## 4. Results
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-設定
-
-1. 影像來源
-Raspberry Pi 4B+
-220 degree camera
-
-電腦設定
-
-1. Conditional Compile
-2. 設定影像來源
-
-
-AWS rekognition
-
-設定
-
-
-結果
-
-
-結論
+## 5. Conclusion
