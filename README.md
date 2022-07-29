@@ -1,9 +1,8 @@
-
-整個文章大概是 1. 目的 2. 實驗環境 3. 程式執行 4. 結果  5. 結論
-
-# Qt Mainmoil CUDA with ALPR
+# Qt Mainmoil CUDA used on ALPR
 
 ## 1. Purpose
+
+This repo is a guide describing how to acquire fisheye images from 220 degree raspberry pi camera, process with qt_mainmoil_cuda program, then use AWS Rekognition to do the license plate recognition.
 
 Base on MOIL fisheye imaging, we hope to extend the MOIL application on ALPR( Automatic number-plate recognition )
 
@@ -12,9 +11,9 @@ Base on MOIL fisheye imaging, we hope to extend the MOIL application on ALPR( Au
 
 ## 2. Testing environment
 
-攝影機與車輛模型 車牌產生
-
-One Raspberry Pi with a 220 degree fisheye camera, wirelessly connected to A PC running Ubuntu 18.04.
+- Raspberry Pi with a 220 degree fisheye camera  
+- A PC with NVidea GPU Card running Ubuntu 18.04.
+- All the above are wireless or wired connected    
 
 
 ## 3. Software Running
@@ -52,6 +51,11 @@ then you can enter the address in browser of another PC
 
 > http://192.168.xx.xx:8000
 
+dataset :
+
+1. image : <a href="fisheye/220/moil_alpr_220.jpg">220</a> <a href="fisheye/160/moil_alpr_160.jpg">160</a>
+
+2. video clip : <a href="fisheye/220/moil_alpr_220.mp4">220</a> <a href="fisheye/160/moil_alpr_160.mp4">160</a>
 
 ### 3.2 Qt_Mainmoil_Cuda
 
@@ -119,24 +123,91 @@ See the python program in the directory AWS_rekog
 
 The most important steps are,
 
-1. Modify the config file aws_config.py with your access key, secret key, and AWS region. ( Before that, you need to register an AWS account).
+1. Modify the file aws_config_template.py with your access key, secret key, and AWS region. ( Before that, you need to register an AWS account). Save it as aws_config.py for later use.
 
 2. Run the Python script
 
 ```sh
 cd AWS_rekog
-python3 {imagefile}
+python amazon_ocr.py -i {imagefile}
 ```
 
-The {imagefile} is the image filename from the previous step.
-
-
+The {imagefile} is the image filename saved in the previous step.
 
 ## 4. Results
 
+Here are some of the results of AWS rekognition after MOIL process.  
+
+### a.
+
+<a href="rekog/output/output01.png">
+<img src="rekog/output/output01.png" width="500px">
+</a>
+
+Correct.
+
+### b.
+
+<a href="rekog/output/output02.png">
+<img src="rekog/output/output02.png" width="500px">
+</a>
+
+Correct.
+
+### c.
+
+<a href="rekog/output/output03.png">
+<img src="rekog/output/output03.png" width="500px">
+</a>
+
+Not correct
+
+The reason is, the area near 180-220 degree have a poor resoluton and hard to do the recognition.
+
+so we move the car to a smaller angle (about 160 degree ) and try again.
+
+### c-2.
+
+<a href="rekog/output/output03-c.png">
+<img src="rekog/output/output03-c.png" width="500px">
+</a>
+
+This time, we got a correct result.
+
+### d.
+
+<a href="rekog/output/output04.png">
+<img src="rekog/output/output04.png" width="500px">
+</a>
+
+Correct.
+
+### e.
+
+<a href="rekog/output/output05.png">
+<img src="rekog/output/output05.png" width="500px">
+</a>
+
+Not correct. ( Should be AKS-0267)
+
+The reason is also because the resolution near 180-220 degree is not good enough.
 
 
+## 5. Summary
 
+The MOIL fisheye imaging can help the ALPR application to achieve wide angle image acquisition and multiple license plates recognition at the same time.
 
+The experiment results show that most of the images undistorted using MOIL can have good recognition results, excepts those images corresponds to angles extreme left and right. Since the pixels on the fisheye image are not equally distributed, especially the region around and over 180 degree. To avoid the false recognition rate we may exclude the images from those area.
 
-## 5. Conclusion
+<img src="lab/alpha_Lo.jpg" width="500px">
+Alpha angle and image height relationship
+
+.
+<img src="lab/dencity_1D.jpg" width="500px">
+The differential of the image height (Dh) from 0 to 110 degree
+
+<img src="lab/dencity_2D.jpg" width="500px">
+The image density is proportional to the square of Dh
+
+.
+The image density drop steeply when alpha angle close to 80. In this experiment we need to abandon part of the angles close to 90. From the recognition result we decide to set the bounday at 80 degree.  
