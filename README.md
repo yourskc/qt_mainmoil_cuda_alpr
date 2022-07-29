@@ -206,6 +206,7 @@ Alpha angle and image height relationship
 <img src="lab/dencity_1D.jpg" width="500px">
 The differential of the image height (Dh) from 0 to 110 degree
 
+.
 <img src="lab/dencity_2D.jpg" width="500px">
 The image density is proportional to the square of Dh
 
