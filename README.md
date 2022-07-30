@@ -199,16 +199,27 @@ The MOIL fisheye imaging can help the ALPR application to achieve wide angle ima
 
 The experiment results show that most of the images undistorted using MOIL can have good recognition results, excepts those images corresponds to angles extreme left and right. Since the pixels on the fisheye image are not equally distributed, especially the region around and over 180 degree. To avoid the false recognition rate we may exclude the images from those area.
 
+.
 <img src="lab/alpha_Lo.jpg" width="500px">
-Alpha angle and image height relationship
+
+5.a Alpha angle and image height relationship
 
 .
-<img src="lab/dencity_1D.jpg" width="500px">
-The differential of the image height (Dh) from 0 to 110 degree
+<img src="lab/dencity_1.jpg" width="500px">
+5.b The differential of the image height (Dh) from 0 to 110 degree, equivalent to alpha direction dencity.
+
+<img src="lab/alphabeta.jpg" width="500px">
+
+5.c The image density is proportional to the ( 1 degree alpha x 1 degree beta ) area.
 
 .
-<img src="lab/dencity_2D.jpg" width="500px">
-The image density is proportional to the square of Dh
+<img src="lab/dencity_3.jpg" width="500px">
+
+5.d The image density is proportional to the ( 1 degree alpha x 1 degree beta ) area.
+
+
 
 .
-The image density drop steeply when alpha angle close to 80. In this experiment we need to abandon part of the angles close to 90. From the recognition result we decide to set the bounday at 80 degree.  
+The image density drops when alpha angle close to 90 degree ( see fig. 5.d ). However, the most important influences is the alpha directional  density drop( see fig. 5.b ). In this experiment we need to abandon part of the angles close to 90. From the recognition result we decide to set the bounday at 80 degree.  
+
+This research is still continue.
