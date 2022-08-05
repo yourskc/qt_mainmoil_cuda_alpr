@@ -205,15 +205,15 @@ The experiment results show that most of the images undistorted using MOIL can h
 5.a Alpha angle and image height relationship
 
 .
-<img src="lab/dencity_1.jpg" width="500px">
-5.b The differential of the image height (Dh) from 0 to 110 degree, equivalent to alpha direction dencity.
+<img src="lab/density_1.jpg" width="500px">
+5.b The differential of the image height (Dh) from 0 to 110 degree, equivalent to alpha direction density.
 
 <img src="lab/alphabeta.jpg" width="500px">
 
 5.c The image density is proportional to the ( 1 degree alpha x 1 degree beta ) area.
 
 .
-<img src="lab/dencity_3.jpg" width="500px">
+<img src="lab/density_3.jpg" width="500px">
 
 5.d The image density is proportional to the ( 1 degree alpha x 1 degree beta ) area.
 
